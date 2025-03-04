@@ -1,0 +1,835 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOq6OabXSdemZPOut4tv1pQ",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Anjali-042/ML_LAB/blob/main/042_lab0\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "8Eb7ieQTXgIl",
+        "outputId": "32c1878e-3cc1-4196-8314-c70fced982b9"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Sample data:\n",
+            "      Name  Age         City\n",
+            "0    Alice   25     New York\n",
+            "1      Bob   30  Los Angeles\n",
+            "2  Charlie   35      Chicago\n",
+            "3    David   40      Houston\n"
+          ]
+        }
+      ],
+      "source": [
+        "import pandas as pd\n",
+        "\n",
+        "\n",
+        "data = {\n",
+        "\n",
+        "'Name': ['Alice', 'Bob', 'Charlie', 'David'],\n",
+        "\n",
+        "'Age': [25, 30, 35, 40],\n",
+        "\n",
+        "'City': ['New York', 'Los Angeles', 'Chicago', 'Houston']\n",
+        "\n",
+        "}\n",
+        "\n",
+        "df = pd.DataFrame(data)\n",
+        "\n",
+        "print(\"Sample data:\")\n",
+        "\n",
+        "print(df.head())"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pandas as pd\n",
+        "\n",
+        "from sklearn.datasets import load_iris\n",
+        "iris = load_iris()\n",
+        "\n",
+        "df = pd.DataFrame(iris.data, columns=iris.feature_names)\n",
+        "\n",
+        "df['target'] = iris.target\n",
+        "\n",
+        "print(\"Sample data:\")\n",
+        "\n",
+        "print(df.head())\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "ThOdQ2miXtoZ",
+        "outputId": "d6012f67-84e9-48c3-84e1-664302fede4c"
+      },
+      "execution_count": 3,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Sample data:\n",
+            "   sepal length (cm)  sepal width (cm)  petal length (cm)  petal width (cm)  \\\n",
+            "0                5.1               3.5                1.4               0.2   \n",
+            "1                4.9               3.0                1.4               0.2   \n",
+            "2                4.7               3.2                1.3               0.2   \n",
+            "3                4.6               3.1                1.5               0.2   \n",
+            "4                5.0               3.6                1.4               0.2   \n",
+            "\n",
+            "   target  \n",
+            "0       0  \n",
+            "1       0  \n",
+            "2       0  \n",
+            "3       0  \n",
+            "4       0  \n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "file_path = '/content/sample_sales_data.csv'\n",
+        "\n",
+        "df = pd.read_csv(file_path)\n",
+        "\n",
+        "print(\"Sample data:\")\n",
+        "\n",
+        "print(df.head())\n",
+        "\n",
+        "print(\"\\n\")"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "B1I_rBRoYfIA",
+        "outputId": "ac3b24b6-732d-469f-a329-b9fcc8743946"
+      },
+      "execution_count": 7,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Sample data:\n",
+            "    Product  Quantity  Price  Sales Region\n",
+            "0    Laptop         5   1000   5000  North\n",
+            "1     Mouse        15     20    300   West\n",
+            "2  Keyboard        10     50    500   East\n",
+            "3   Monitor         8    200   1600  South\n",
+            "4    Laptop        12    950  11400  North\n",
+            "\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "file_path = '/content/sample_sales_data.csv'\n",
+        "\n",
+        "df = pd.read_csv(file_path)\n",
+        "\n",
+        "print(\"Sample data:\")\n",
+        "sales_by_region=df.groupby('Region')['Sales'].sum()\n",
+        "print(sales_by_region)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "cZFW2IXeZq_1",
+        "outputId": "6fef0cbc-7346-4575-fb77-ce49e1e994f7"
+      },
+      "execution_count": 8,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Sample data:\n",
+            "Region\n",
+            "East       770\n",
+            "North    16400\n",
+            "South     3070\n",
+            "West       650\n",
+            "Name: Sales, dtype: int64\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "file_path = '/content/sample_sales_data.csv'\n",
+        "\n",
+        "df = pd.read_csv(file_path)\n",
+        "\n",
+        "best_selling_product=df.groupby('Product')['Quantity'].sum().sort_values(ascending=False)\n",
+        "print(best_selling_product)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Zb8s8u7QaB7T",
+        "outputId": "65d0d606-531f-4197-f111-c786a4e13c78"
+      },
+      "execution_count": 13,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Product\n",
+            "Mouse       29\n",
+            "Laptop      17\n",
+            "Keyboard    16\n",
+            "Monitor     15\n",
+            "Name: Quantity, dtype: int64\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "file_path = '/content/sample_sales_data.csv'\n",
+        "\n",
+        "df = pd.read_csv(file_path)\n",
+        "\n",
+        "best_selling_product=df.groupby('Product')['Quantity'].sum().sort_values(ascending=False)\n",
+        "best_selling_product.to_csv('sales_by_region.csv')\n",
+        "print(\"\\nAnalysis result saved to CSV files\")"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "U-3mZ7W_a7R5",
+        "outputId": "328301e1-694f-45eb-dcbc-0a1291664b36"
+      },
+      "execution_count": 14,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "\n",
+            "Analysis result saved to CSV files\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "import yfinance as yf\n",
+        "import pandas as pd\n",
+        "\n",
+        "tickers = [\"RELIANCE.NS\", \"TCS.NS\", \"INFY.NS\"]\n",
+        "\n",
+        "data = yf.download(tickers, start=\"2022-10-01\", end=\"2023-10-01\", group_by='ticker')\n",
+        "print(data.head())\n",
+        "print(data.shape)\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "3XySC01kcuvH",
+        "outputId": "10826fff-502f-4807-91b0-cf0c9b80bf88"
+      },
+      "execution_count": 20,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stderr",
+          "text": [
+            "[*********************100%***********************]  3 of 3 completed"
+          ]
+        },
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Ticker          INFY.NS                                                  \\\n",
+            "Price              Open         High          Low        Close   Volume   \n",
+            "Date                                                                      \n",
+            "2022-10-03  1337.743240  1337.743240  1313.110574  1320.453003  4943169   \n",
+            "2022-10-04  1345.038201  1356.928245  1339.638009  1354.228149  6631341   \n",
+            "2022-10-06  1369.007786  1383.029504  1368.155094  1378.624023  6180672   \n",
+            "2022-10-07  1370.286797  1381.182015  1364.412900  1374.881714  3994466   \n",
+            "2022-10-10  1351.338457  1387.955883  1351.338457  1385.729492  5274677   \n",
+            "\n",
+            "Ticker      RELIANCE.NS                                                   \\\n",
+            "Price              Open         High          Low        Close    Volume   \n",
+            "Date                                                                       \n",
+            "2022-10-03  1088.493134  1100.076669  1075.521371  1078.479858  11852723   \n",
+            "2022-10-04  1091.360592  1100.554607  1087.878645  1098.369873   8948850   \n",
+            "2022-10-06  1105.561415  1115.119493  1100.622978  1102.420776  13352162   \n",
+            "2022-10-07  1099.029980  1112.343173  1099.029980  1107.086182   7714340   \n",
+            "2022-10-10  1094.637648  1100.372591  1086.900123  1095.001831   6329527   \n",
+            "\n",
+            "Ticker           TCS.NS                                                  \n",
+            "Price              Open         High          Low        Close   Volume  \n",
+            "Date                                                                     \n",
+            "2022-10-03  2799.044354  2823.062819  2779.418333  2789.651855  1763331  \n",
+            "2022-10-04  2831.707297  2895.304988  2825.212065  2888.903076  2145875  \n",
+            "2022-10-06  2907.454752  2919.604193  2890.118388  2898.996826  1790816  \n",
+            "2022-10-07  2894.744453  2901.847294  2858.015940  2864.370850  1939879  \n",
+            "2022-10-10  2813.062865  2922.407833  2808.390003  2914.510742  3064063  \n",
+            "(247, 15)\n"
+          ]
+        },
+        {
+          "output_type": "stream",
+          "name": "stderr",
+          "text": [
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "import yfinance as yf\n",
+        "import pandas as pd\n",
+        "\n",
+        "tickers = [\"RELIANCE.NS\", \"TCS.NS\", \"INFY.NS\"]\n",
+        "\n",
+        "data = yf.download(tickers, start=\"2022-10-01\", end=\"2023-10-01\", group_by='ticker')\n",
+        "reliance_data = data['RELIANCE.NS']\n",
+        "print(\"reliance_data.describe\")\n",
+        "reliance_data['Daily Return'] = reliance_data['Close'].pct_change()\n",
+        "print(data.head())"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "VExZWYj-dZ1R",
+        "outputId": "218a877f-2d85-4fbd-9e6e-3a25f1635974"
+      },
+      "execution_count": 25,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stderr",
+          "text": [
+            "[*********************100%***********************]  3 of 3 completed"
+          ]
+        },
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "reliance_data.describe\n",
+            "Ticker          INFY.NS                                                  \\\n",
+            "Price              Open         High          Low        Close   Volume   \n",
+            "Date                                                                      \n",
+            "2022-10-03  1337.743240  1337.743240  1313.110574  1320.453003  4943169   \n",
+            "2022-10-04  1345.038201  1356.928245  1339.638009  1354.228149  6631341   \n",
+            "2022-10-06  1369.007786  1383.029504  1368.155094  1378.624023  6180672   \n",
+            "2022-10-07  1370.286797  1381.182015  1364.412900  1374.881714  3994466   \n",
+            "2022-10-10  1351.338457  1387.955883  1351.338457  1385.729492  5274677   \n",
+            "\n",
+            "Ticker      RELIANCE.NS                                                   \\\n",
+            "Price              Open         High          Low        Close    Volume   \n",
+            "Date                                                                       \n",
+            "2022-10-03  1088.493134  1100.076669  1075.521371  1078.479858  11852723   \n",
+            "2022-10-04  1091.360592  1100.554607  1087.878645  1098.369873   8948850   \n",
+            "2022-10-06  1105.561415  1115.119493  1100.622978  1102.420776  13352162   \n",
+            "2022-10-07  1099.029980  1112.343173  1099.029980  1107.086182   7714340   \n",
+            "2022-10-10  1094.637648  1100.372591  1086.900123  1095.001831   6329527   \n",
+            "\n",
+            "Ticker           TCS.NS                                                  \n",
+            "Price              Open         High          Low        Close   Volume  \n",
+            "Date                                                                     \n",
+            "2022-10-03  2799.044354  2823.062819  2779.418333  2789.651855  1763331  \n",
+            "2022-10-04  2831.707297  2895.304988  2825.212065  2888.903076  2145875  \n",
+            "2022-10-06  2907.454752  2919.604193  2890.118388  2898.996826  1790816  \n",
+            "2022-10-07  2894.744453  2901.847294  2858.015940  2864.370850  1939879  \n",
+            "2022-10-10  2813.062865  2922.407833  2808.390003  2914.510742  3064063  \n"
+          ]
+        },
+        {
+          "output_type": "stream",
+          "name": "stderr",
+          "text": [
+            "\n",
+            "<ipython-input-25-b1eab15a3a4d>:9: SettingWithCopyWarning: \n",
+            "A value is trying to be set on a copy of a slice from a DataFrame.\n",
+            "Try using .loc[row_indexer,col_indexer] = value instead\n",
+            "\n",
+            "See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy\n",
+            "  reliance_data['Daily Return'] = reliance_data['Close'].pct_change()\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import yfinance as yf\n",
+        "import pandas as pd\n",
+        "tickers = [\"RELIANCE.NS\", \"TCS.NS\", \"INFY.NS\"]\n",
+        "data = yf.download(tickers, start=\"2022-10-01\", end=\"2023-10-01\", group_by='ticker')\n",
+        "reliance_data = data['RELIANCE.NS']\n",
+        "print(\"reliance_data.describe\")\n",
+        "reliance_data['Daily Return'] = reliance_data['Close'].pct_change()\n",
+        "print(data.head())\n",
+        "\n",
+        "reliance_data.describe()\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 928
+        },
+        "id": "KWQYLUbfejO1",
+        "outputId": "93ffb1a9-7e47-4ca1-ff84-c461503f6d34"
+      },
+      "execution_count": 27,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stderr",
+          "text": [
+            "[*********************100%***********************]  3 of 3 completed"
+          ]
+        },
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "reliance_data.describe\n",
+            "Ticker      RELIANCE.NS                                                   \\\n",
+            "Price              Open         High          Low        Close    Volume   \n",
+            "Date                                                                       \n",
+            "2022-10-03  1088.493134  1100.076669  1075.521371  1078.479858  11852723   \n",
+            "2022-10-04  1091.360592  1100.554607  1087.878645  1098.369873   8948850   \n",
+            "2022-10-06  1105.561415  1115.119493  1100.622978  1102.420776  13352162   \n",
+            "2022-10-07  1099.029980  1112.343173  1099.029980  1107.086182   7714340   \n",
+            "2022-10-10  1094.637648  1100.372591  1086.900123  1095.001831   6329527   \n",
+            "\n",
+            "Ticker          INFY.NS                                                  \\\n",
+            "Price              Open         High          Low        Close   Volume   \n",
+            "Date                                                                      \n",
+            "2022-10-03  1337.743240  1337.743240  1313.110574  1320.453003  4943169   \n",
+            "2022-10-04  1345.038201  1356.928245  1339.638009  1354.228149  6631341   \n",
+            "2022-10-06  1369.007786  1383.029504  1368.155094  1378.624023  6180672   \n",
+            "2022-10-07  1370.286797  1381.182015  1364.412900  1374.881714  3994466   \n",
+            "2022-10-10  1351.338457  1387.955883  1351.338457  1385.729492  5274677   \n",
+            "\n",
+            "Ticker           TCS.NS                                                  \n",
+            "Price              Open         High          Low        Close   Volume  \n",
+            "Date                                                                     \n",
+            "2022-10-03  2799.044354  2823.062819  2779.418333  2789.651855  1763331  \n",
+            "2022-10-04  2831.707297  2895.304988  2825.212065  2888.903076  2145875  \n",
+            "2022-10-06  2907.454752  2919.604193  2890.118388  2898.996826  1790816  \n",
+            "2022-10-07  2894.744453  2901.847294  2858.015940  2864.370850  1939879  \n",
+            "2022-10-10  2813.062865  2922.407833  2808.390003  2914.510742  3064063  \n"
+          ]
+        },
+        {
+          "output_type": "stream",
+          "name": "stderr",
+          "text": [
+            "\n",
+            "<ipython-input-27-7647281f57e2>:7: SettingWithCopyWarning: \n",
+            "A value is trying to be set on a copy of a slice from a DataFrame.\n",
+            "Try using .loc[row_indexer,col_indexer] = value instead\n",
+            "\n",
+            "See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy\n",
+            "  reliance_data['Daily Return'] = reliance_data['Close'].pct_change()\n"
+          ]
+        },
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "Price         Open         High          Low        Close        Volume  \\\n",
+              "count   247.000000   247.000000   247.000000   247.000000  2.470000e+02   \n",
+              "mean   1147.548566  1156.216094  1137.195378  1146.522438  1.316652e+07   \n",
+              "std      65.890225    66.850133    65.752470    66.687258  6.754099e+06   \n",
+              "min    1008.159038  1010.434788   992.228728  1001.900696  3.370033e+06   \n",
+              "25%    1098.882005  1103.399363  1084.795044  1097.357117  8.717141e+06   \n",
+              "50%    1147.435205  1155.036230  1138.787343  1147.253174  1.158959e+07   \n",
+              "75%    1196.261444  1203.625226  1184.985050  1195.064575  1.530302e+07   \n",
+              "max    1288.076701  1299.910648  1273.056728  1293.470215  5.708188e+07   \n",
+              "\n",
+              "Price  Daily Return  \n",
+              "count    246.000000  \n",
+              "mean       0.000380  \n",
+              "std        0.011658  \n",
+              "min       -0.030956  \n",
+              "25%       -0.006973  \n",
+              "50%        0.000037  \n",
+              "75%        0.006809  \n",
+              "max        0.043115  "
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=\"df-e8f8a9b8-dac1-4533-a924-8770a457ce87\" class=\"colab-df-container\">\n",
+              "    <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th>Price</th>\n",
+              "      <th>Open</th>\n",
+              "      <th>High</th>\n",
+              "      <th>Low</th>\n",
+              "      <th>Close</th>\n",
+              "      <th>Volume</th>\n",
+              "      <th>Daily Return</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>count</th>\n",
+              "      <td>247.000000</td>\n",
+              "      <td>247.000000</td>\n",
+              "      <td>247.000000</td>\n",
+              "      <td>247.000000</td>\n",
+              "      <td>2.470000e+02</td>\n",
+              "      <td>246.000000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>mean</th>\n",
+              "      <td>1147.548566</td>\n",
+              "      <td>1156.216094</td>\n",
+              "      <td>1137.195378</td>\n",
+              "      <td>1146.522438</td>\n",
+              "      <td>1.316652e+07</td>\n",
+              "      <td>0.000380</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>std</th>\n",
+              "      <td>65.890225</td>\n",
+              "      <td>66.850133</td>\n",
+              "      <td>65.752470</td>\n",
+              "      <td>66.687258</td>\n",
+              "      <td>6.754099e+06</td>\n",
+              "      <td>0.011658</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>min</th>\n",
+              "      <td>1008.159038</td>\n",
+              "      <td>1010.434788</td>\n",
+              "      <td>992.228728</td>\n",
+              "      <td>1001.900696</td>\n",
+              "      <td>3.370033e+06</td>\n",
+              "      <td>-0.030956</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>25%</th>\n",
+              "      <td>1098.882005</td>\n",
+              "      <td>1103.399363</td>\n",
+              "      <td>1084.795044</td>\n",
+              "      <td>1097.357117</td>\n",
+              "      <td>8.717141e+06</td>\n",
+              "      <td>-0.006973</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>50%</th>\n",
+              "      <td>1147.435205</td>\n",
+              "      <td>1155.036230</td>\n",
+              "      <td>1138.787343</td>\n",
+              "      <td>1147.253174</td>\n",
+              "      <td>1.158959e+07</td>\n",
+              "      <td>0.000037</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>75%</th>\n",
+              "      <td>1196.261444</td>\n",
+              "      <td>1203.625226</td>\n",
+              "      <td>1184.985050</td>\n",
+              "      <td>1195.064575</td>\n",
+              "      <td>1.530302e+07</td>\n",
+              "      <td>0.006809</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>max</th>\n",
+              "      <td>1288.076701</td>\n",
+              "      <td>1299.910648</td>\n",
+              "      <td>1273.056728</td>\n",
+              "      <td>1293.470215</td>\n",
+              "      <td>5.708188e+07</td>\n",
+              "      <td>0.043115</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>\n",
+              "    <div class=\"colab-df-buttons\">\n",
+              "\n",
+              "  <div class=\"colab-df-container\">\n",
+              "    <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-e8f8a9b8-dac1-4533-a924-8770a457ce87')\"\n",
+              "            title=\"Convert this dataframe to an interactive table.\"\n",
+              "            style=\"display:none;\">\n",
+              "\n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\" viewBox=\"0 -960 960 960\">\n",
+              "    <path d=\"M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z\"/>\n",
+              "  </svg>\n",
+              "    </button>\n",
+              "\n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-buttons div {\n",
+              "      margin-bottom: 4px;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "    <script>\n",
+              "      const buttonEl =\n",
+              "        document.querySelector('#df-e8f8a9b8-dac1-4533-a924-8770a457ce87 button.colab-df-convert');\n",
+              "      buttonEl.style.display =\n",
+              "        google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "      async function convertToInteractive(key) {\n",
+              "        const element = document.querySelector('#df-e8f8a9b8-dac1-4533-a924-8770a457ce87');\n",
+              "        const dataTable =\n",
+              "          await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                    [key], {});\n",
+              "        if (!dataTable) return;\n",
+              "\n",
+              "        const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "          '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "          + ' to learn more about interactive tables.';\n",
+              "        element.innerHTML = '';\n",
+              "        dataTable['output_type'] = 'display_data';\n",
+              "        await google.colab.output.renderOutput(dataTable, element);\n",
+              "        const docLink = document.createElement('div');\n",
+              "        docLink.innerHTML = docLinkHtml;\n",
+              "        element.appendChild(docLink);\n",
+              "      }\n",
+              "    </script>\n",
+              "  </div>\n",
+              "\n",
+              "\n",
+              "<div id=\"df-5f749f9c-b701-48a9-83c9-0684a5f51578\">\n",
+              "  <button class=\"colab-df-quickchart\" onclick=\"quickchart('df-5f749f9c-b701-48a9-83c9-0684a5f51578')\"\n",
+              "            title=\"Suggest charts\"\n",
+              "            style=\"display:none;\">\n",
+              "\n",
+              "<svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\"viewBox=\"0 0 24 24\"\n",
+              "     width=\"24px\">\n",
+              "    <g>\n",
+              "        <path d=\"M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z\"/>\n",
+              "    </g>\n",
+              "</svg>\n",
+              "  </button>\n",
+              "\n",
+              "<style>\n",
+              "  .colab-df-quickchart {\n",
+              "      --bg-color: #E8F0FE;\n",
+              "      --fill-color: #1967D2;\n",
+              "      --hover-bg-color: #E2EBFA;\n",
+              "      --hover-fill-color: #174EA6;\n",
+              "      --disabled-fill-color: #AAA;\n",
+              "      --disabled-bg-color: #DDD;\n",
+              "  }\n",
+              "\n",
+              "  [theme=dark] .colab-df-quickchart {\n",
+              "      --bg-color: #3B4455;\n",
+              "      --fill-color: #D2E3FC;\n",
+              "      --hover-bg-color: #434B5C;\n",
+              "      --hover-fill-color: #FFFFFF;\n",
+              "      --disabled-bg-color: #3B4455;\n",
+              "      --disabled-fill-color: #666;\n",
+              "  }\n",
+              "\n",
+              "  .colab-df-quickchart {\n",
+              "    background-color: var(--bg-color);\n",
+              "    border: none;\n",
+              "    border-radius: 50%;\n",
+              "    cursor: pointer;\n",
+              "    display: none;\n",
+              "    fill: var(--fill-color);\n",
+              "    height: 32px;\n",
+              "    padding: 0;\n",
+              "    width: 32px;\n",
+              "  }\n",
+              "\n",
+              "  .colab-df-quickchart:hover {\n",
+              "    background-color: var(--hover-bg-color);\n",
+              "    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "    fill: var(--button-hover-fill-color);\n",
+              "  }\n",
+              "\n",
+              "  .colab-df-quickchart-complete:disabled,\n",
+              "  .colab-df-quickchart-complete:disabled:hover {\n",
+              "    background-color: var(--disabled-bg-color);\n",
+              "    fill: var(--disabled-fill-color);\n",
+              "    box-shadow: none;\n",
+              "  }\n",
+              "\n",
+              "  .colab-df-spinner {\n",
+              "    border: 2px solid var(--fill-color);\n",
+              "    border-color: transparent;\n",
+              "    border-bottom-color: var(--fill-color);\n",
+              "    animation:\n",
+              "      spin 1s steps(1) infinite;\n",
+              "  }\n",
+              "\n",
+              "  @keyframes spin {\n",
+              "    0% {\n",
+              "      border-color: transparent;\n",
+              "      border-bottom-color: var(--fill-color);\n",
+              "      border-left-color: var(--fill-color);\n",
+              "    }\n",
+              "    20% {\n",
+              "      border-color: transparent;\n",
+              "      border-left-color: var(--fill-color);\n",
+              "      border-top-color: var(--fill-color);\n",
+              "    }\n",
+              "    30% {\n",
+              "      border-color: transparent;\n",
+              "      border-left-color: var(--fill-color);\n",
+              "      border-top-color: var(--fill-color);\n",
+              "      border-right-color: var(--fill-color);\n",
+              "    }\n",
+              "    40% {\n",
+              "      border-color: transparent;\n",
+              "      border-right-color: var(--fill-color);\n",
+              "      border-top-color: var(--fill-color);\n",
+              "    }\n",
+              "    60% {\n",
+              "      border-color: transparent;\n",
+              "      border-right-color: var(--fill-color);\n",
+              "    }\n",
+              "    80% {\n",
+              "      border-color: transparent;\n",
+              "      border-right-color: var(--fill-color);\n",
+              "      border-bottom-color: var(--fill-color);\n",
+              "    }\n",
+              "    90% {\n",
+              "      border-color: transparent;\n",
+              "      border-bottom-color: var(--fill-color);\n",
+              "    }\n",
+              "  }\n",
+              "</style>\n",
+              "\n",
+              "  <script>\n",
+              "    async function quickchart(key) {\n",
+              "      const quickchartButtonEl =\n",
+              "        document.querySelector('#' + key + ' button');\n",
+              "      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.\n",
+              "      quickchartButtonEl.classList.add('colab-df-spinner');\n",
+              "      try {\n",
+              "        const charts = await google.colab.kernel.invokeFunction(\n",
+              "            'suggestCharts', [key], {});\n",
+              "      } catch (error) {\n",
+              "        console.error('Error during call to suggestCharts:', error);\n",
+              "      }\n",
+              "      quickchartButtonEl.classList.remove('colab-df-spinner');\n",
+              "      quickchartButtonEl.classList.add('colab-df-quickchart-complete');\n",
+              "    }\n",
+              "    (() => {\n",
+              "      let quickchartButtonEl =\n",
+              "        document.querySelector('#df-5f749f9c-b701-48a9-83c9-0684a5f51578 button');\n",
+              "      quickchartButtonEl.style.display =\n",
+              "        google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "    })();\n",
+              "  </script>\n",
+              "</div>\n",
+              "\n",
+              "    </div>\n",
+              "  </div>\n"
+            ],
+            "application/vnd.google.colaboratory.intrinsic+json": {
+              "type": "dataframe",
+              "summary": "{\n  \"name\": \"reliance_data\",\n  \"rows\": 8,\n  \"fields\": [\n    {\n      \"column\": \"Open\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 468.1695843822546,\n        \"min\": 65.89022515895691,\n        \"max\": 1288.076700948864,\n        \"num_unique_values\": 8,\n        \"samples\": [\n          1147.5485656002795,\n          1147.435204947075,\n          247.0\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"High\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 471.5773419031448,\n        \"min\": 66.85013277434038,\n        \"max\": 1299.9106483107323,\n        \"num_unique_values\": 8,\n        \"samples\": [\n          1156.2160943515103,\n          1155.0362299051242,\n          247.0\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"Low\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 462.5976870234155,\n        \"min\": 65.75246986277094,\n        \"max\": 1273.0567278790884,\n        \"num_unique_values\": 8,\n        \"samples\": [\n          1137.1953775720733,\n          1138.787342721133,\n          247.0\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"Close\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 468.1176978078408,\n        \"min\": 66.68725836304253,\n        \"max\": 1293.47021484375,\n        \"num_unique_values\": 8,\n        \"samples\": [\n          1146.5224384508635,\n          1147.253173828125,\n          247.0\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"Volume\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 17935080.268046927,\n        \"min\": 247.0,\n        \"max\": 57081884.0,\n        \"num_unique_values\": 8,\n        \"samples\": [\n          13166519.566801619,\n          11589592.0,\n          247.0\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"Daily Return\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 86.97292080189101,\n        \"min\": -0.030955915729685257,\n        \"max\": 246.0,\n        \"num_unique_values\": 8,\n        \"samples\": [\n          0.0003796804953942939,\n          3.6659183878018364e-05,\n          246.0\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    }\n  ]\n}"
+            }
+          },
+          "metadata": {},
+          "execution_count": 27
+        }
+      ]
+    }
+  ]
+}
